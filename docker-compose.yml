@@ -1,0 +1,44 @@
+# Local dev stack. Jenkins and Vault live here (outside Kubernetes) to save laptop memory.
+#   docker compose up -d --build reviewer         # just the app
+#   docker compose up -d                          # app + Jenkins + Vault
+#   docker compose --profile llm up -d ollama     # optional local LLM
+services:
+  reviewer:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+      target: runtime
+    image: ${DOCKERHUB_USER:-local}/reviewops:dev
+    ports: ["8000:8000"]
+    environment:
+      APP_VERSION: ${APP_VERSION:-0.1.0-dev}
+      LLM_BACKEND: ${LLM_BACKEND:-fake}
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:1b}
+
+  jenkins:
+    build: ./jenkins
+    user: root              # baseline shortcut so Jenkins can use the Docker socket
+    ports: ["8080:8080", "50000:50000"]
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workspace/reviewops:ro
+
+  vault:
+    image: hashicorp/vault:1.17
+    command: server -dev -dev-listen-address=0.0.0.0:8200
+    cap_add: [IPC_LOCK]
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_TOKEN:-dev-root-token}
+    ports: ["8200:8200"]
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["llm"]
+    ports: ["11434:11434"]
+    volumes: [ollama_data:/root/.ollama]
+
+volumes:
+  jenkins_home:
+  ollama_data:
