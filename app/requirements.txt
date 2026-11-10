@@ -1,0 +1,5 @@
+# Ranges (not exact pins) so pip can pick versions that ship wheels for your Python
+# (pydantic>=2.12 supports Python 3.14). Pin with `pip freeze` once everything works.
+fastapi>=0.115
+uvicorn>=0.32
+pydantic>=2.12
