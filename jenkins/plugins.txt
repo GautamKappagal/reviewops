@@ -1,0 +1,6 @@
+git
+github
+workflow-aggregator
+credentials-binding
+timestamper
+hashicorp-vault-plugin
