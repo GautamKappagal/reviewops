@@ -1,0 +1,9 @@
+diff --git a/util.py b/util.py
+--- a/util.py
++++ b/util.py
+@@ -1,2 +1,5 @@
+ def add(a, b):
+     return a + b
++
++def multiply(a, b):
++    return a * b

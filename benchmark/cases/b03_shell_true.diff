@@ -1,0 +1,6 @@
+diff --git a/deploy.py b/deploy.py
+--- a/deploy.py
++++ b/deploy.py
+@@ -1,2 +1,3 @@
+ import subprocess
++subprocess.run("ls " + user_dir, shell=True)

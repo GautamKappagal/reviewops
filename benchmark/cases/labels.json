@@ -1,0 +1,12 @@
+{
+  "b01_hardcoded_password": {"bug": true},
+  "b02_eval_user_input":    {"bug": true},
+  "b03_shell_true":         {"bug": true},
+  "b04_sql_concat":         {"bug": true},
+  "b05_tls_verify_off":     {"bug": true},
+  "b06_md5_password":       {"bug": true},
+  "c01_add_function":       {"bug": false},
+  "c02_parameterized_sql":  {"bug": false},
+  "c03_safe_subprocess":    {"bug": false},
+  "c04_docs_only":          {"bug": false}
+}

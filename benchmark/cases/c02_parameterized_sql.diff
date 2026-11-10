@@ -1,0 +1,7 @@
+diff --git a/repo.py b/repo.py
+--- a/repo.py
++++ b/repo.py
+@@ -4,2 +4,3 @@
+ def find_user(cur, name):
++    cur.execute("SELECT * FROM users WHERE name = %s", (name,))
+     return cur.fetchall()
