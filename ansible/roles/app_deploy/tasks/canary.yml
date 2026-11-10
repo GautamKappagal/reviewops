@@ -1,0 +1,16 @@
+---
+- name: Canary Deployment (one pod, new image)
+  vars:
+    track: canary
+  kubernetes.core.k8s:
+    state: present
+    wait: true
+    wait_timeout: "{{ deploy_wait_timeout }}"
+    definition: "{{ lookup('ansible.builtin.template', 'deployment.yaml.j2') | from_yaml }}"
+
+- name: Canary Service (separate from the stable Service)
+  vars:
+    track: canary
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('ansible.builtin.template', 'service.yaml.j2') | from_yaml }}"

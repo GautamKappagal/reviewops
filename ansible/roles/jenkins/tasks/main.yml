@@ -1,0 +1,5 @@
+---
+# TODO: implement the 'jenkins' role.
+- name: Placeholder for the jenkins role
+  ansible.builtin.debug:
+    msg: "Role 'jenkins' is not implemented yet."

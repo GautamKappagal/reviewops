@@ -1,0 +1,16 @@
+---
+- name: Remove the canary Deployment
+  kubernetes.core.k8s:
+    state: absent
+    api_version: apps/v1
+    kind: Deployment
+    name: "{{ app_name }}-canary"
+    namespace: "{{ namespace }}"
+
+- name: Remove the canary Service
+  kubernetes.core.k8s:
+    state: absent
+    api_version: v1
+    kind: Service
+    name: "{{ app_name }}-canary"
+    namespace: "{{ namespace }}"

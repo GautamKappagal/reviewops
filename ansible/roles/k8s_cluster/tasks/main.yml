@@ -1,0 +1,5 @@
+---
+# TODO: implement the 'k8s_cluster' role.
+- name: Placeholder for the k8s_cluster role
+  ansible.builtin.debug:
+    msg: "Role 'k8s_cluster' is not implemented yet."

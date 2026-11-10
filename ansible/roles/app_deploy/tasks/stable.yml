@@ -1,0 +1,21 @@
+---
+- name: Rolling update of the stable Deployment
+  vars:
+    track: stable
+  kubernetes.core.k8s:
+    state: present
+    wait: true
+    wait_timeout: "{{ deploy_wait_timeout }}"
+    definition: "{{ lookup('ansible.builtin.template', 'deployment.yaml.j2') | from_yaml }}"
+
+- name: Stable Service
+  vars:
+    track: stable
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('ansible.builtin.template', 'service.yaml.j2') | from_yaml }}"
+
+- name: Horizontal Pod Autoscaler
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('ansible.builtin.template', 'hpa.yaml.j2') | from_yaml }}"

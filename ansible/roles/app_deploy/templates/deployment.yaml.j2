@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ app_name }}{{ '-canary' if track == 'canary' else '' }}
+  namespace: {{ namespace }}
+  labels:
+    app: {{ app_name }}
+    track: {{ track }}
+spec:
+  replicas: {{ 1 if track == 'canary' else replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: {{ app_name }}
+      track: {{ track }}
+  template:
+    metadata:
+      labels:
+        app: {{ app_name }}
+        track: {{ track }}
+    spec:
+      containers:
+        - name: reviewer
+          image: {{ image_repo }}:{{ image_tag }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_VERSION
+              value: "{{ image_tag }}"
+            - name: LLM_BACKEND
+              value: "{{ llm_backend }}"
+            - name: PROMPT_VERSION
+              value: "{{ prompt_version }}"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

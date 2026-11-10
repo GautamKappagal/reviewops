@@ -1,0 +1,5 @@
+---
+# TODO: implement the 'vault' role.
+- name: Placeholder for the vault role
+  ansible.builtin.debug:
+    msg: "Role 'vault' is not implemented yet."

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ app_name }}{{ '-canary' if track == 'canary' else '' }}
+  namespace: {{ namespace }}
+spec:
+  type: {{ 'ClusterIP' if track == 'canary' else service_type }}
+  selector:
+    app: {{ app_name }}
+    track: {{ track }}
+  ports:
+    - port: 8000
+      targetPort: 8000
+{% if track != 'canary' and service_type == 'NodePort' %}
+      nodePort: {{ node_port }}
+{% endif %}

@@ -1,0 +1,11 @@
+---
+# One-time platform bootstrap. Fill in each role as the project progresses.
+- name: Bootstrap the ReviewOps platform
+  hosts: local
+  gather_facts: false
+  roles:
+    - { role: docker,      tags: [docker] }
+    - { role: k8s_cluster, tags: [k8s_cluster] }
+    - { role: jenkins,     tags: [jenkins] }
+    - { role: vault,       tags: [vault] }
+    - { role: elk,         tags: [elk] }

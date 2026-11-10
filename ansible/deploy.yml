@@ -1,0 +1,7 @@
+---
+# Called by Jenkins:  ansible-playbook deploy.yml -e deploy_mode=canary|promote|discard|stable
+- name: Deploy ReviewOps to Kubernetes
+  hosts: local
+  gather_facts: false
+  roles:
+    - app_deploy

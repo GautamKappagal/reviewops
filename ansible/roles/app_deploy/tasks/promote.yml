@@ -1,0 +1,6 @@
+---
+- name: Roll the stable Deployment to the verified image
+  ansible.builtin.include_tasks: stable.yml
+
+- name: Clean up the canary
+  ansible.builtin.include_tasks: discard.yml

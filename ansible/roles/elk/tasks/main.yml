@@ -1,0 +1,5 @@
+---
+# TODO: implement the 'elk' role.
+- name: Placeholder for the elk role
+  ansible.builtin.debug:
+    msg: "Role 'elk' is not implemented yet."

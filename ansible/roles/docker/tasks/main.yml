@@ -1,0 +1,5 @@
+---
+# TODO: implement the 'docker' role.
+- name: Placeholder for the docker role
+  ansible.builtin.debug:
+    msg: "Role 'docker' is not implemented yet."

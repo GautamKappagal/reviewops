@@ -1,0 +1,14 @@
+---
+app_name: reviewops
+namespace: reviewops
+image_repo: your-dockerhub-username/reviewops   # overridden by Jenkins with -e
+image_tag: latest
+replicas: 2
+hpa_min: 2
+hpa_max: 5
+hpa_cpu_target: 60
+llm_backend: fake
+prompt_version: v1
+service_type: NodePort
+node_port: 30080
+deploy_mode: stable        # stable | canary | promote | discard
